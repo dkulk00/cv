@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daan Kulk - Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            background-color: #c2d4e5;
+            color: #0f172a;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        
+        body.dark {
+            background-color: #020617;
+            color: #f1f5f9;
+        }
+        
+        .container {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        
+        @media (min-width: 1024px) {
+            .container {
+                flex-direction: row;
+            }
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            background-color: #ffffff;
+            border-right: 1px solid #e2e8f0;
+            transition: background-color 0.3s ease;
+        }
+        
+        body.dark .sidebar {
+            background-color: #0f172a;
+            border-color: #1e293b;
+        }
+        
+        @media (min-width: 1024px) {
+            .sidebar {
+                width: 320px;
+                position: sticky;
+                top: 0;
+                height: 100vh;
+                overflow-y: auto;
+            }
+        }
+        
+        .sidebar-content {
+            padding: 32px;
+        }
+        
+        .profile {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .profile-avatar {
+            width: 96px;
+            height: 96px;
+            margin: 0 auto 16px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, #2563eb, #4f46e5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 30px;
+            font-weight: 700;
+            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);
+        }
+        
+        .profile h1 {
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: -0.025em;
+            margin-bottom: 4px;
+        }
+        
+        .profile p {
+            color: #2563eb;
+            font-weight: 600;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-top: 4px;
+        }
+        
+        body.dark .profile p {
+            color: #60a5fa;
+        }
+        
+        .nav-section {
+            margin-bottom: 24px;
+        }
+        
+        .nav-title {
+            font-size: 11px;
+            font-weight: 700;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 16px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+            font-size: 14px;
+        }
+        
+        .contact-badge {
+            padding: 8px;
+            border-radius: 8px;
+            background-color: #f1f5f9;
+            margin-right: 12px;
+            font-size: 12px;
+            transition: all 0.3s ease;
+        }
+        
+        body.dark .contact-badge {
+            background-color: #1e293b;
+        }
+        
+        .skill-item {
+            margin-bottom: 16px;
+        }
+        
+        .skill-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        
+        .skill-bar-container {
+            width: 100%;
+            background-color: #f1f5f9;
+            border-radius: 9999px;
+            height: 6px;
+            overflow: hidden;
+        }
+        
+        body.dark .skill-bar-container {
+            background-color: #1e293b;
+        }
+        
+        .skill-bar {
+            height: 100%;
+            background-color: #2563eb;
+            border-radius: 9999px;
+            width: 0;
+            transition: width 1.5s cubic-bezier(0.17, 0.55, 0.55, 1);
+        }
+        
+        .soft-skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        .skill-tag {
+            padding: 4px 12px;
+            background-color: #dbeafe;
+            color: #1e3a8a;
+            border-radius: 9999px;
+            font-size: 11px;
+        }
+        
+        body.dark .skill-tag {
+            background-color: #1e3a8a;
+            color: #dbeafe;
+        }
+        
+        .languages-list {
+            font-size: 14px;
+            line-height: 2;
+        }
+        
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            padding: 24px;
+        }
+        
+        @media (min-width: 1024px) {
+            .main-content {
+                padding: 64px;
+            }
+        }
+        
+        .content-wrapper {
+            max-width: 896px;
+        }
+        
+        .section {
+            margin-bottom: 80px;
+        }
+        
+        .intro-label {
+            color: #4f46e5;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        
+        .intro-title {
+            font-size: 36px;
+            font-weight: 800;
+            margin-bottom: 32px;
+            letter-spacing: -0.025em;
+            line-height: 1.2;
+        }
+        
+        @media (min-width: 1024px) {
+            .intro-title {
+                font-size: 48px;
+            }
+        }
+        
+        .intro-title .highlight {
+            color: #2563eb;
+            font-style: italic;
+        }
+        
+        .intro-text {
+            font-size: 18px;
+            color: #475569;
+            line-height: 1.75;
+            margin-bottom: 16px;
+        }
+        
+        body.dark .intro-text {
+            color: #94a3b8;
+        }
+        
+        .section-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 32px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .title-line {
+            width: 32px;
+            height: 4px;
+            background-color: #2563eb;
+            margin-right: 16px;
+        }
+        
+        .card {
+            background-color: #ffffff;
+            padding: 24px;
+            border-radius: 16px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            border: 1px solid #f1f5f9;
+            margin-bottom: 24px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        body.dark .card {
+            background-color: #0f172a;
+            border-color: #1e293b;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: #3b82f6;
+        }
+        
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+        
+        .card-title {
+            font-weight: 700;
+            font-size: 18px;
+            margin-bottom: 4px;
+        }
+        
+        .card-subtitle {
+            color: #2563eb;
+            font-size: 14px;
+        }
+        
+        .accordion-icon {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+            transition: transform 0.3s ease;
+            stroke: currentColor;
+            stroke-width: 2;
+        }
+        
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s cubic-bezier(0, 1, 0, 1);
+            margin-top: 16px;
+            color: #475569;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        
+        body.dark .accordion-content {
+            color: #94a3b8;
+        }
+        
+        .accordion-content.active {
+            max-height: 1000px;
+            transition: max-height 0.4s ease-in-out;
+        }
+        
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 12px;
+        }
+        
+        .tag {
+            padding: 4px 8px;
+            background-color: #eff6ff;
+            color: #1e3a8a;
+            border-radius: 4px;
+            font-size: 11px;
+        }
+        
+        body.dark .tag {
+            background-color: rgba(30, 58, 138, 0.3);
+            color: #93c5fd;
+        }
+        
+        .project-grid {
+            display: grid;
+            gap: 24px;
+        }
+        
+        @media (min-width: 768px) {
+            .project-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        .project-card {
+            background-color: #ffffff;
+            padding: 24px;
+            border-radius: 16px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            border: 1px solid #f1f5f9;
+            transition: all 0.3s ease;
+        }
+        
+        body.dark .project-card {
+            background-color: #0f172a;
+            border-color: #1e293b;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-5px);
+            border-color: #3b82f6;
+        }
+        
+        .project-accent {
+            height: 4px;
+            width: 48px;
+            background: linear-gradient(90deg, #2563eb, #4f46e5);
+            border-radius: 2px;
+            margin-bottom: 16px;
+        }
+        
+        .project-title {
+            font-weight: 700;
+            font-size: 18px;
+            margin-bottom: 8px;
+        }
+        
+        .project-text {
+            color: #475569;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        
+        body.dark .project-text {
+            color: #94a3b8;
+        }
+        
+        /* Dark Mode Toggle */
+        .dark-toggle {
+            position: fixed;
+            top: 24px;
+            right: 24px;
+            z-index: 50;
+            padding: 12px;
+            border-radius: 12px;
+            background-color: #ffffff;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e2e8f0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        body.dark .dark-toggle {
+            background-color: #1e3a8a;
+            border-color: #1e40af;
+        }
+
+img {
+  display: block; /* Zorgt voor een eigen regel, makkelijker te centreren */
+  max-width: 100%; /* Verkleint de afbeelding op kleinere schermen */
+  height: auto; /* Behoudt de verhouding */
+  border-radius: 50%; /* Voor een ronde foto, als dat past */
+  margin: 20px auto; /* Centreert de afbeelding en voegt ruimte toe */
+  width: 150px; /* Vaste breedte, maar wordt beperkt door max-width */
+  /* aspect-ratio: 1 / 1;  */ /* Optioneel: forceert een vierkante vorm */
+}
+    </style>
+</head>
+<body>
+    <button class="dark-toggle" id="darkModeToggle">
+        <svg class="moon-icon" style="width:24px; height:24px;" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+        </svg>
+    </button>
+
+    <div class="container">
+        <aside class="sidebar">
+            <div class="sidebar-content">
+
+                <div class="profile" data-aos="fade-in">
+                 <img src="foto.png" alt="pasfoto" width="170">
+                    <h1>Daan Kulk</h1>
+                    <p>ICT Starter</p>
+                </div>
+
+                <nav>
+                    <div class="nav-section">
+ <div class="card" onclick="toggleAccordion(this)"> <h3 class="nav-title">🔽 Contact</h3>
+                       
+ <div class="accordion-content"> <div class="contact-item"><span class="contact-badge">📧<a href="mailto:dkulk00@gmail.com">dkulk00@gmail.com</a></span></div>	
+
+           <summary>    <div class="contact-item"><span class="contact-badge">📱 06 83875832</span></div> </summary>
+           <summary>    <div class="contact-item"><span class="contact-badge">📍 Den Haag, NL</span></div></summary>
+                    </div></div>
+
+                    <div class="nav-section">
+                        <h3 class="nav-title">Hard Skills</h3>
+
+
+
+                        <div class="skill-item">
+                            <div class="skill-header"><span>Administratie</span><span>90%</span></div>
+                            <div class="skill-bar-container"><div class="skill-bar" data-width="90"></div></div>
+                        </div>
+
+    			<div class="skill-item">
+                            <div class="skill-header"><span>Microsoft Excel</span><span>78%</span></div>
+                            <div class="skill-bar-container"><div class="skill-bar" data-width="90"></div></div>
+                        </div>
+
+
+                   	  <div class="skill-item">
+                            <div class="skill-header"><span>Agile/Scrum</span><span>77%</span></div>
+                            <div class="skill-bar-container"><div class="skill-bar" data-width="80"></div></div>
+                        </div>
+                  
+
+			<div class="skill-item">
+                            <div class="skill-header"><span>AI Prompting</span><span>75%</span></div>
+                            <div class="skill-bar-container"><div class="skill-bar" data-width="80"></div></div>
+                        </div>
+
+ 			<div class="skill-item">
+                            <div class="skill-header"><span>Power BI</span><span>70%</span></div>
+                            <div class="skill-bar-container"><div class="skill-bar" data-width="80"></div></div>
+                        </div>
+
+                     <div class="skill-item">
+                            <div class="skill-header"><span>HTML</span><span>65%</span></div>
+                            <div class="skill-bar-container"><div class="skill-bar" data-width="80"></div></div>
+                        </div>
+
+                        <div class="skill-item">
+                            <div class="skill-header"><span>Functioneel Testen</span><span>65%</span></div>
+                            <div class="skill-bar-container"><div class="skill-bar" data-width="65"></div></div>
+                        </div>
+
+			<div class="skill-item">
+                            <div class="skill-header"><span>API Kennis</span><span>55%</span></div>
+                            <div class="skill-bar-container"><div class="skill-bar" data-width="50"></div></div>
+                        </div>
+   			<div class="skill-item">
+                            <div class="skill-header"><span>SQL</span><span>35%</span></div>
+                            <div class="skill-bar-container"><div class="skill-bar" data-width="40"></div></div>
+                        </div>
+     			 
+                    </div>
+
+                    <div class="nav-section">
+                        <h3 class="nav-title">Soft Skills</h3>
+                        <div class="soft-skills">
+                            <span class="skill-tag">Analytisch</span>
+			    <span class="skill-tag">Communicatie</span>
+                            <span class="skill-tag">Pro-actief</span>
+                            <span class="skill-tag">Oplossingsgericht</span>
+                            <span class="skill-tag">Prioriteren</span>
+                            <span class="skill-tag">Documentatie</span>
+                        </div>
+                    </div>
+
+                    <div class="nav-section">
+                        <h3 class="nav-title">Talen & Extra</h3>
+                        <div class="languages-list">
+                            <div>🇳🇱 Nederlands (Moedertaal)</div>
+                            <div>🇬🇧 Engels (Vloeiend)</div>
+                            <div>🚗 Rijbewijs A & B</div>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <div class="content-wrapper">
+                <section class="section" data-aos="fade-up">
+                    <h2 class="intro-label">Introductie</h2>
+                    <h3 class="intro-title">Ik wil complexe techniek <span class="highlight">volledig doorgronden</span>.</h3>
+                    <p class="intro-text">Gedreven en ambitieuze ICT-starter met een sterke focus op technische groei. Ik ben van nature leergierig en raak gemotiveerd door het doorgronden van complexe systemen en nieuwe technologieën. Mijn doel is om mijn passie voor ICT om te zetten in concrete technische vaardigheden en een waardevolle bijdrage te leveren aan innovatieve IT-projecten. Ik start binnenkort met de opleiding ICT System Engineer en ik zoek een omgeving waar ik mijzelf kan ontwikkelen.</p>
+                </section>
+
+                <section class="section">
+                    <h2 class="section-title"><span class="title-line"></span> Werkervaring</h2>
+                    
+                    <div class="card" onclick="toggleAccordion(this)">
+                        <div class="card-header">
+                            <div>
+                                <h4 class="card-title">Zelfstandig Ondernemer</h4>
+                                <p class="card-subtitle">Fitperformance.nl • Nov 2020 - Heden</p>
+                            </div>
+                            <svg class="accordion-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"></path></svg>
+                        </div>
+                        <div class="accordion-content">
+                            <p>Het online en fysiek begeleiden van mensen bij hun fysieke transformatie. Hierbij kijk ik met een helikopterview naar de gehele situatie en neem ik niet alleen de eetgewoontes mee maar kijk ik naar slaap, relatie(s), huishouden, gewoontes, ritme en stress om de begeleiding zo goed mogelijk te laten aansluiten op het leven van de klant. Mijn werkzaamheden omvatten; (duo) personal training, online coaching, websitebeheer en design, marketing, administratie en alles wat er bij het runnen van een bedrijf komt kijken.</p>
+                            <div class="tags">
+                                <span class="tag">Personal Training</span><span class="tag">Online Coaching</span><span class="tag">Website Design</span><span class="tag">Marketing</span><span class="tag">Ondernemerschap</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card" onclick="toggleAccordion(this)">
+                        <div class="card-header">
+                            <div>
+                                <h4 class="card-title">Functioneel Applicatiebeheerder</h4>
+                                <p class="card-subtitle">DSW • Feb 2024 - Apr 2024</p>
+                            </div>
+                            <svg class="accordion-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"></path></svg>
+                        </div>
+                        <div class="accordion-content">
+                            <p>Als Functioneel Applicatiebeheerder binnen het PO-team bij DSW was ik verantwoordelijk voor het beheren en optimaliseren van twee verschillende bedrijfskritische applicaties, namelijk de wanbetalers software en de prolongatiesoftware. Mijn rol richtte zich op het vertalen van functionele wensen van diverse stakeholders naar concrete oplossingen. Hierbij was ik betrokken bij het gehele sprint proces en onderhield ik nauw contact met zowel gebruikers als ontwikkelaars om te zorgen voor een efficiënte implementatie van nieuwe functionaliteiten en verbeteringen.<br><br>
+
+Naast het doorvoeren van verbeteringen en aanpassingen binnen de applicaties, was ik ook verantwoordelijk voor het oplossen van 2e- en 3e-lijnsstoringen. Hiervoor zocht ik regelmatig naar logs en data uit de database om te achterhalen welk incident heeft plaatsgevonden en onderzocht ik wat dit heeft getriggerd.
+ </p>
+                            <div class="tags">
+                             <span class="tag">2e/3e lijns IT incidenten</span> <span class="tag">Applicatie-migratie</span><span class="tag">Testing</span><span class="tag">SQL</span><span class="tag">Agile/Scrum</span> <span class="tag">Azure DevOpps</span>
+                            </div>
+                        </div></div>
+
+			<div class="card" onclick="toggleAccordion(this)">
+                        <div class="card-header">
+                            <div>
+                                <h4 class="card-title">Young Professional in Finance</h4>
+                                <p class="card-subtitle">Welten (Volksbank) • Jul 2022 - Feb 2024</p>
+                            </div>
+                            <svg class="accordion-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"></path></svg>
+                        </div>
+                       
+ <div class="accordion-content">
+                            <p>Op de afdeling hypotheekacceptatie bij de Volksbank had ik de taak om risico's in te schatten bij hypotheekaanvragen op basis van de verstrekte gegevens, waarbij ik gebruikmaakte van analytische methoden en besluitvormingsmodellen om oplossingen op maat te creëren. 
+
+<br><br>Bij de afdeling Bewindvoering bij de Volksbank was het mijn verantwoordelijkheid om onderbewindgestelden te beschermen door middel het uitvoeren van mutaties, het instellen en blokkeren van rekeningen. Als onderdeel van mijn functie controleerde ik officiële documenten om de nauwkeurigheid en geldigheid ervan te waarborgen.</p>
+                            <div class="tags">
+                                <span class="tag">Risicomanagement</span><span class="tag">Excel</span><span class="tag">PowerBI</span><span class="tag">SharePoint</span><span class="tag">Wet financieel toezicht Basis</span>
+                            </div>
+                        </div>
+                    </div>
+
+<div class="card" onclick="toggleAccordion(this)">
+                        <div class="card-header">
+                            <div>
+                                <h4 class="card-title">Restaurant Manager</h4>
+                                <p class="card-subtitle">Zuidduinen • Mrt 2020 - Nov 2020</p>
+                            </div>
+                            <svg class="accordion-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"></path></svg>
+                        </div>
+                       
+ <div class="accordion-content">
+                            <p>Verantwoordelijk voor het beheer van het restaurant, waarbij ik de bedrijfsvoering optimaliseerde door marges te berekenen op productniveau, gewicht en stukbasis. Dit gaf inzicht in winstgevendheid en mogelijkheden voor menu-engineering. Ik analyseerde en verbeterde bedrijfsprocessen om de snelheid en klanttevredenheid te optimaliseren.</p>
+                            <div class="tags">
+                                <span class="tag">Klantcommunicatie</span><span class="tag">Excel</span><span class="tag">Restaurantbeheer</span><span class="tag">Planning</span><span class="tag">Winstmargeanalyse</span><span class="tag">Circulaire verpakkingsstrategie</span>
+                            </div>
+                        </div>
+                    </div>
+
+<div class="card" onclick="toggleAccordion(this)">
+                        <div class="card-header">
+                            <div>
+                                <h4 class="card-title">Front Office Agent</h4>
+                                <p class="card-subtitle">Zorg en Zekerheid • Aug 2019 - Jun 2022</p>
+                            </div>
+                            <svg class="accordion-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"></path></svg>
+                        </div>
+                       
+ <div class="accordion-content">
+                            <p>Vertalen van complexe financiële gegevens en zorgstelselregels naar begrijpelijke informatie voor klanten en collega's. Focus op klantbeleving en probleemoplossing.</p>
+                            <div class="tags">
+                                <span class="tag">Klantcommunicatie</span><span class="tag">Salesforce</span><span class="tag">Orcacle</span><span class="tag">Zorgverzekeringswet</span><span class="tag">Wet financieel toezicht Zorg</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </section>
+
+                <section class="section">
+                    <h2 class="section-title"><span class="title-line"></span> Belangrijke Projecten</h2>
+                    <div class="project-grid">
+
+			<div class="project-card" data-aos="zoom-in">
+                            <div class="project-accent"></div>
+                            <h4 class="project-title">WebApps Conversie - DSW</h4>
+                            <p class="project-text">Betrokken bij de conversie van prolongatiesoftware naar WebApps platform. Verantwoordelijk voor het verklaren van verschillen tijdens schaduwdraaien en zorgen voor een soepele overgang.</p>
+                            <div class="tags"><span class="tag">Applicatie-migratie</span><span class="tag">Webapplicatie</span> <span class="tag">Schaduwdraaien</span></div>
+                        </div>
+
+
+
+                        <div class="project-card" data-aos="zoom-in">
+                            <div class="project-accent"></div>
+                            <h4 class="project-title">Duurzaamheidsstrategie Restaurant</h4>
+                            <p class="project-text">Implementatie van milieuvriendelijke verpakkingen met volledige integratie in product-margeberekeningen.</p>
+                            <div class="tags"><span class="tag">Circulaire verpakkingsstrategie</span><span class="tag">Strategie</span><span class="tag">Winstmarge-analyse</span></div>
+                        </div>
+
+
+                        <div class="project-card" data-aos="zoom-in" data-aos-delay="100">
+                            <div class="project-accent"></div>
+                            <h4 class="project-title">Fitperformance.nl</h4>
+                            <p class="project-text">Opbouw van een complete business inclusief website, marketing en klantbegeleidingssysteem.</p>
+                            <div class="tags"><span class="tag">Ondernemerschap</span><span class="tag">Web Design</span><span class="tag">Marketing</span></div>
+                        </div>
+
+
+                        <div class="project-card" data-aos="zoom-in">
+                            <div class="project-accent"></div>
+                            <h4 class="project-title">COVID-19 Aanpassingsplan</h4>
+                            <p class="project-text">Ontwikkeling van operationeel plan voor veilige exploitatie onder crisisomstandigheden met behoud van gastervaring.</p>
+                            <div class="tags"><span class="tag">Crisismanagement</span><span class="tag">Operationeel</span><span class="tag">Klantbeleving</span></div>
+                        </div>
+                    </div>
+                </section>
+
+<div class="card" onclick="toggleAccordion(this)">
+    <div class="card-header">
+        <div>
+            <h4 class="card-title">ICT System Engineer (In opleiding)</h4>
+            <p class="card-subtitle">Capabel • Geplande start 2026</p>
+        </div>
+        <svg class="accordion-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path d="M19 9l-7 7-7-7"></path>
+        </svg>
+    </div>
+    <div class="accordion-content">
+        <p>Het ontwerpen, implementeren, beheren en beveiligen van IT-infrastructuur (servers, netwerken, cloud, applicaties) en het ondersteunen van gebruikers om optimale prestaties, stabiliteit en veiligheid te garanderen.</p>
+    </div>
+</div>
+
+<div class="card" onclick="toggleAccordion(this)">
+    <div class="card-header">
+        <div>
+            <h4 class="card-title">Personal Trainer</h4>
+            <p class="card-subtitle">Menno Henselmans • 2021 - 2022</p>
+        </div>
+        <svg class="accordion-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path d="M19 9l-7 7-7-7"></path>
+        </svg>
+    </div>
+    <div class="accordion-content">
+        <p>Diepgaande, wetenschappelijk onderbouwde opleiding tot Personal Trainer, gericht op statistiek, individuele optimalisatie, geavanceerde periodisering en voedingsstrategieën.</p>
+
+    </div>
+</div>
+
+<div class="card" onclick="toggleAccordion(this)">
+    <div class="card-header">
+        <div>
+            <h4 class="card-title">Sociaal Pedagogisch Werker</h4>
+            <p class="card-subtitle">Variva • 2011 - 2012</p>
+        </div>
+        <svg class="accordion-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path d="M19 9l-7 7-7-7"></path>
+        </svg>
+    </div>
+    <div class="accordion-content">
+        <p>Het leren om kinderen te begeleiden in groepsverband en individueel, met focus op hun emotionele veiligheid en ontwikkeling. Het bedenken en uitvoeren van creatieve en educatieve activiteiten, het stimuleren van sociale interactie waarbij rust en structuur worden afgewisseld met uitdaging. Ook leer je hoe je ontwikkelingsverslagen opstelt en bijhoudt.</p>
+    </div>
+</div>
+  
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 800, once: true });
+        
+        document.getElementById('darkModeToggle').addEventListener('click', () => {
+            document.body.classList.toggle('dark');
+        });
+
+        function toggleAccordion(element) {
+            const content = element.querySelector('.accordion-content');
+            content.classList.toggle('active');
+            const icon = element.querySelector('.accordion-icon');
+            icon.style.transform = content.classList.contains('active') ? 'rotate(180deg)' : 'rotate(0deg)';
+        }
+
+        window.addEventListener('load', () => {
+            document.querySelectorAll('.skill-bar').forEach(bar => {
+                bar.style.width = bar.getAttribute('data-width') + '%';
+            });
+        });
+    </script>
+</body>
+</html>
